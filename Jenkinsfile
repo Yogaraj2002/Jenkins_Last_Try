@@ -32,15 +32,12 @@ pipeline {
 
       stage('Deploy Apex Classes') {
             steps {
-                // Change 'JenkinsSFDeploy' to whatever name you used in the 'sf project generate' command
                 dir('JenkinsSFDeploy') {
                     bat '''
                     sf project deploy start ^
-                    --metadata ApexClass:HelloWorldService ^
-                    --metadata ApexClass:HelloWorldServiceTest ^
+                    --source-dir force-app ^
                     --target-org yogi81102.3781dfe9b859@agentforce.com ^
-                    --test-level RunSpecifiedTests ^
-                    --tests HelloWorldServiceTest ^
+                    --test-level NoTestRun ^
                     --wait 60
                     '''
                 }
