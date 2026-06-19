@@ -30,18 +30,17 @@ pipeline {
             }
         }
 
-        stage('Deploy Apex Classes') {
+      stage('Deploy Apex Classes') {
             steps {
-                // Since everything is at the root, no 'dir()' block is needed!
-                bat '''
-                sf project deploy start ^
-                --metadata ApexClass:HelloWorldService ^
-                --metadata ApexClass:HelloWorldServiceTest ^
-                --target-org JenkinsOrg ^
-                --test-level RunSpecifiedTests ^
-                --tests HelloWorldServiceTest ^
-                --wait 60
-                '''
+                dir('JenkinsSFDeploy') {
+                    bat '''
+                    sf project deploy start ^
+                    --source-dir force-app ^
+                    --target-org yogi81102.3781dfe9b859@agentforce.com ^
+                    --test-level NoTestRun ^
+                    --wait 60
+                    '''
+                }
             }
         }
     }
